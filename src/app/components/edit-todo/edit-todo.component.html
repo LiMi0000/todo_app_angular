@@ -1,0 +1,53 @@
+<h1 class="title">Edit Todo</h1>
+<div class="mat-dialog-content">
+  <form #form="ngForm" (ngSubmit)="onFormSubmit(form)">
+    <div class="field">
+      <div class="control">
+        <input
+          type="text"
+          class="input"
+          placeholder=""
+          name="text"
+          [ngModel]="todo.text"
+          required
+          minlength="4"
+          #todoInputField="ngModel"
+        />
+      </div>
+
+      <div *ngIf="todoInputField.invalid">
+        <p class="help is-danger" *ngIf="todoInputField.errors!.required">
+          You must fill the input to add tasks to your list
+        </p>
+        <p class="help is-danger" *ngIf="todoInputField.errors!.minlength">
+          Task must be at least 4 characters
+        </p>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="field is-grouped is-grouped-right">
+      <div class="control">
+        <button
+          type="button"
+          class="button is-light is-danger"
+          (click)="close()"
+        >
+          <i class="material-icons" style="margin-right: 5px; margin-left: -3px"
+            >highlight_off</i
+          >
+          Cancel
+        </button>
+      </div>
+      <div class="control">
+        <button type="submit" class="button is-success">
+          <i class="material-icons" style="margin-right: 5px; margin-left: -3px"
+            >save</i
+          >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

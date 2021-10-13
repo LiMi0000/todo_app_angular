@@ -1,0 +1,56 @@
+<section class="heading-section">
+  <h1 class="title is-1 has-text-centered">Plan your day, work & everything</h1>
+</section>
+
+<div class="container add-todo-box-container">
+  <div class="add-todo-box">
+    <form #form="ngForm" (ngSubmit)="onFormSubmit(form)">
+      <h2 class="title is-5">New Todo</h2>
+
+      <div class="field is-grouped my-0">
+        <p class="control is-expanded">
+          <input
+            class="input"
+            type="text"
+            placeholder="Type any todo to add to your list..."
+            ngModel
+            name="text"
+            required
+            autocomplete="off"
+            #todoInputField="ngModel"
+            minlength="4"
+          />
+        </p>
+        <p class="control">
+          <button class="button alt-gradient-button">
+            <i class="material-icons">add_circle</i>
+            Add
+          </button>
+        </p>
+      </div>
+
+      <div *ngIf="todoInputField.invalid && showValidationErrors">
+        <p class="help is-danger" *ngIf="todoInputField.errors!.required">
+          You must fill the input to add tasks to your list
+        </p>
+        <p class="help is-danger" *ngIf="todoInputField.errors!.minlength">
+          Task must be at least 4 characters
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="todos-list">
+      <app-todo-item
+        *ngFor="let todo of todos"
+        [todo]="todo"
+        (todoClicked)="toggleCompleted(todo)"
+        (editClicked)="editTodo(todo)"
+        (deleteClicked)="deleteTodo(todo)"
+      ></app-todo-item>
+    </div>
+  </div>
+</section>
